@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>Lumen Labs | Bottle-1 Nano Ecosystem</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <title>Lumen Labs | Bottle-1 Nano AI Ecosystem</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -16,9 +16,11 @@
             --text-dim: #9494a0;
             --border: #1e1e24;
             --glow: 0 0 20px rgba(0, 255, 65, 0.2);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* --- Base Reset & Layout --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
         html { scroll-behavior: smooth; }
         body {
             font-family: 'Inter', sans-serif;
@@ -26,175 +28,218 @@
             color: var(--text);
             line-height: 1.6;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
+        .container { 
+            width: 100%; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 0 24px; 
+        }
+
+        /* --- Header (macOS blur style) --- */
         header {
             position: fixed;
             top: 0; width: 100%; z-index: 1000;
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 20px 5%; background: rgba(1, 1, 1, 0.85);
-            backdrop-filter: blur(15px); border-bottom: 1px solid var(--border);
+            padding: 20px 0; background: rgba(1, 1, 1, 0.8);
+            backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
+            transition: var(--transition);
         }
-        .logo { font-size: 24px; font-weight: 900; text-decoration: none; color: #fff; letter-spacing: -1px; }
+        header .container {
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo { font-size: 24px; font-weight: 900; text-decoration: none; color: #fff; letter-spacing: -1px; transition: var(--transition); }
         .logo span { color: var(--primary); }
+        .logo:hover { transform: scale(1.05); }
         
         nav ul { display: flex; gap: 30px; list-style: none; }
-        nav a { text-decoration: none; color: var(--text-dim); font-size: 15px; font-weight: 500; transition: 0.3s; }
+        nav a { text-decoration: none; color: var(--text-dim); font-size: 14px; font-weight: 500; transition: var(--transition); }
         nav a:hover { color: var(--primary); }
 
-        .container { width: 90%; max-width: 1440px; margin: 0 auto; }
-        section { padding: 100px 0; border-bottom: 1px solid var(--border); }
-        
+        /* --- Common Section Elements --- */
+        section { padding: 120px 0; border-bottom: 1px solid var(--border); }
         .section-label { color: var(--primary); font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; display: block; }
-        .section-title { font-size: clamp(32px, 5vw, 64px); font-weight: 800; margin-bottom: 50px; letter-spacing: -1.5px; }
+        .section-title { font-size: clamp(32px, 5vw, 56px); font-weight: 900; margin-bottom: 50px; letter-spacing: -2px; line-height: 1.1; }
 
-        /* Hero */
+        /* --- Hero (The Hook) --- */
         .hero { 
-            text-align: center; padding: 200px 0 100px;
+            padding: 220px 0 120px;
+            text-align: center;
             background: radial-gradient(circle at 50% 30%, rgba(0, 255, 65, 0.08) 0%, transparent 60%);
         }
-        h1 { font-size: clamp(48px, 8vw, 110px); font-weight: 900; line-height: 0.9; margin-bottom: 30px; letter-spacing: -4px; }
-        .hero-p { font-size: clamp(18px, 2vw, 22px); color: var(--text-dim); max-width: 800px; margin: 0 auto 40px; }
+        h1 { font-size: clamp(48px, 9vw, 100px); font-weight: 900; line-height: 0.9; margin-bottom: 30px; letter-spacing: -4px; color: #fff; }
+        .hero-p { font-size: clamp(18px, 2vw, 22px); color: var(--text-dim); max-width: 800px; margin: 0 auto 50px; }
 
+        /* --- Buttons (Neon Shine) --- */
         .btn-group { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
-        .btn { cursor: pointer; padding: 18px 35px; border-radius: 12px; font-weight: 700; text-decoration: none; transition: 0.3s; border: none; font-size: 16px; display: inline-block; }
+        .btn { cursor: pointer; padding: 18px 36px; border-radius: 12px; font-weight: 700; text-decoration: none; transition: var(--transition); border: none; font-size: 16px; position: relative; overflow: hidden; }
+        
         .btn-primary { background: var(--primary); color: #000; }
         .btn-outline { border: 1px solid var(--border); background: transparent; color: #fff; }
+
         .btn:hover { transform: translateY(-3px); box-shadow: var(--glow); }
+        .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
 
-        /* Grid */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
-        .card { background: var(--card-bg); padding: 40px; border-radius: 24px; border: 1px solid var(--border); transition: 0.4s; }
-        .card:hover { border-color: var(--primary); transform: translateY(-8px); }
-        .card h3 { font-size: 28px; margin-bottom: 15px; color: var(--primary); }
+        /* --- Grid System & Cards --- */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        
+        .card { 
+            background: var(--card-bg); 
+            padding: 45px; 
+            border-radius: 28px; 
+            border: 1px solid var(--border); 
+            transition: var(--transition); 
+            position: relative;
+        }
+        .card:hover { 
+            border-color: var(--primary); 
+            transform: translateY(-8px); 
+            background: rgba(15, 15, 18, 0.9);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        /* Neon indicator on top of cards */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 50%; width: 0; height: 1px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+        .card:hover::before { left: 10%; width: 80%; box-shadow: var(--glow); }
 
-        /* Console & Keys */
-        .doc-console { background: #050505; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-top: 30px; }
-        .console-header { background: #111; padding: 12px 20px; display: flex; gap: 8px; border-bottom: 1px solid var(--border); align-items: center; }
-        .dot { width: 10px; height: 10px; border-radius: 50%; }
-        pre { padding: 25px; font-family: 'Fira Code', monospace; color: #888; font-size: clamp(14px, 1.5vw, 17px); background: #000; line-height: 1.6; overflow-x: auto; }
-        .highlight { color: var(--primary); }
+        .card h3 { font-size: 28px; font-weight: 800; margin-bottom: 15px; color: var(--primary); }
+        .card p { font-size: 16px; color: var(--text-dim); }
 
-        #dbLog { background: #000; border: 1px solid var(--border); border-radius: 12px; padding: 20px; font-family: 'Fira Code', monospace; font-size: 14px; color: #666; max-height: 250px; overflow-y: auto; margin-top: 20px; }
+        /* --- Key Console Section (The Feature) --- */
+        #keyDisplay { 
+            display: none; background: #000; border: 1px dashed var(--primary); 
+            padding: 25px; border-radius: 12px; margin-bottom: 30px; 
+            font-family: 'Fira Code', monospace; color: var(--primary); 
+            font-size: clamp(16px, 2vw, 22px); word-break: break-all;
+            position: relative;
+        }
+        
+        /* Simple blinking cursor effect */
+        #keyDisplay::after {
+            content: '_';
+            animation: blink 1s infinite;
+        }
+        @keyframes blink { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
 
-        /* Pricing */
-        .price-card { background: var(--surface); padding: 50px 30px; border-radius: 24px; border: 1px solid var(--border); text-align: center; display: flex; flex-direction: column; }
-        .price-card.featured { border-color: var(--primary); background: rgba(0, 255, 65, 0.04); transform: scale(1.03); }
-        .price-val { font-size: 48px; font-weight: 800; margin: 25px 0; }
-        .feature-list { list-style: none; text-align: left; margin-bottom: 30px; font-size: 15px; color: var(--text-dim); flex-grow: 1; }
-        .feature-list li { margin-bottom: 12px; display: flex; align-items: center; }
-        .feature-list li::before { content: "✓"; color: var(--primary); margin-right: 12px; font-weight: 900; }
+        #dbLog { 
+            background: #050505; border: 1px solid var(--border); border-radius: 16px; 
+            padding: 20px; font-family: 'Fira Code', monospace; font-size: 14px; 
+            color: #666; max-height: 250px; overflow-y: auto; margin-top: 20px;
+            border-left: 2px solid var(--border);
+        }
+        
+        /* Styling DB log entries */
+        #dbLog p { margin-bottom: 6px; }
+        #dbLog span.commit { color: #555; font-weight: 500; }
+        #dbLog span.time { color: #444; }
 
-        /* Team */
-        .team-box { display: flex; gap: 40px; background: var(--surface); padding: 50px; border-radius: 24px; border: 1px solid var(--border); align-items: center; }
+        /* --- Pricing Section (The Business) --- */
+        .price-card { background: var(--surface); padding: 60px 35px; border-radius: 28px; border: 1px solid var(--border); text-align: center; }
+        .price-card.featured { border-color: var(--primary); background: rgba(0, 255, 65, 0.04); }
+        .price-val { font-size: clamp(48px, 6vw, 60px); font-weight: 900; margin: 25px 0; color: #fff; }
+        .price-val span { font-size: 16px; color: var(--text-dim); }
+        
+        .feature-list { list-style: none; text-align: left; margin-bottom: 35px; font-size: 15px; color: var(--text-dim); }
+        .feature-list li { margin-bottom: 10px; display: flex; align-items: center; }
+        .feature-list li::before { content: "✓"; color: var(--primary); margin-right: 12px; font-weight: 900; font-size: 18px; }
+
+        /* --- Team Box --- */
+        .team-box { display: flex; gap: 50px; background: var(--surface); padding: 60px; border-radius: 28px; border: 1px solid var(--border); align-items: center; }
         .team-info { flex: 2; }
-        .team-values { flex: 1; border-left: 1px solid var(--border); padding-left: 40px; }
+        .team-values { flex: 1; border-left: 1px solid var(--border); padding-left: 50px; }
+        .team-values p { font-size: 16px; color: var(--text-dim); margin-bottom: 8px; }
 
-        footer { padding: 60px 0; text-align: center; color: #444; font-size: 14px; border-top: 1px solid var(--border); }
+        /* --- Footer --- */
+        footer { padding: 60px 0; text-align: center; color: #333; font-size: 14px; border-top: 1px solid var(--border); }
+        footer a { color: #444; text-decoration: none; }
+        footer a:hover { color: var(--primary); }
+
+        /* --- Mobile Responsiveness --- */
+        @media (max-width: 992px) {
+            .team-box { flex-direction: column; text-align: center; gap: 30px; }
+            .team-values { border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 30px; width: 100%; }
+        }
 
         @media (max-width: 768px) {
-            header { padding: 15px 5%; flex-direction: column; gap: 15px; }
-            .hero { padding: 160px 0 60px; }
-            .team-box { flex-direction: column; }
-            .team-values { border-left: none; border-top: 1px solid var(--border); padding-top: 20px; padding-left: 0; }
+            nav { display: none; } /* Could add a simple burger menulater */
+            .hero { padding: 180px 0 80px; }
+            section { padding: 80px 0; }
+            .btn { width: 100%; }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <a href="#home" class="logo">LUMEN<span>LABS</span></a>
-    <nav>
-        <ul>
-            <li><a href="#ecosystem">Продукты</a></li>
-            <li><a href="#console">Консоль</a></li>
-            <li><a href="#docs">Документация</a></li>
-            <li><a href="#pricing">Тарифы</a></li>
-        </ul>
-    </nav>
+    <div class="container">
+        <a href="#home" class="logo">LUMEN<span>LABS</span></a>
+        <nav>
+            <ul>
+                <li><a href="#console">Консоль</a></li>
+                <li><a href="#ecosystem">Документация</a></li>
+                <li><a href="#pricing">Тарифы</a></li>
+            </ul>
+        </nav>
+    </div>
 </header>
 
 <main>
     <section class="hero" id="home">
         <div class="container">
-            <span class="section-label">Astana Tech Innovation · 2026</span>
+            <span class="section-label">Innovative AI Ecosystem</span>
             <h1>Bottle-1 Nano</h1>
-            <p class="hero-p">Собственная языковая модель и высокопроизводительная API-экосистема. Интеллектуальное ядро для проектов LabAI и Rummy CLI.</p>
+            <p class="hero-p">Программная платформа и высокопроизводительная API-экосистема. Мощное ИИ-ядро для образовательных технологий и локальной разработки.</p>
             <div class="btn-group">
-                <a href="#console" class="btn btn-primary">Сгенерировать ключ</a>
-                <a href="#ecosystem" class="btn btn-outline">Наши продукты</a>
+                <a href="#console" class="btn btn-primary">Получить API Ключ</a>
+                <a href="#ecosystem" class="btn btn-outline">Изучить сервисы</a>
             </div>
         </div>
     </section>
 
     <section id="console">
-        <div class="container">
-            <span class="section-label">Lumen Cloud Console</span>
-            <h2 class="section-title">Управление доступом</h2>
-            
+        <div class="容器 container">
+            <span class="section-label">Lumen Cloud DB</span>
+            <h2 class="section-title">Генератор API Доступов</h2>
             <div class="card" style="max-width: 800px; margin: 0 auto; text-align: center; border-color: var(--primary);">
-                <p style="margin-bottom: 25px; color: var(--text-dim);">Генерация уникальных API-ключей с автоматической записью в реестр базы данных Lumen Labs.</p>
-                
-                <div id="keyDisplay" style="display: none; background: #000; border: 1px dashed var(--primary); padding: 20px; border-radius: 12px; margin-bottom: 25px; font-family: 'Fira Code', monospace; color: var(--primary); font-size: clamp(16px, 2vw, 24px); word-break: break-all;">
-                </div>
-
-                <button onclick="generateAndSaveKey()" class="btn btn-primary">Сгенерировать API Key</button>
+                <p style="margin-bottom: 25px; font-size: 15px; color: var(--text-dim);">Сгенерируйте уникальный API-ключ для Bottle-1. Ключ будет автоматически занесен в нашу базу данных. <br> <strong>Сохраните его!</strong></p>
+                <div id="keyDisplay"></div>
+                <button onclick="generateAndSaveKey()" class="btn btn-primary btn-large">Сгенерировать ключ доступа</button>
             </div>
-
-            <div style="margin-top: 60px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                    <h4 style="color: var(--text-dim);">Логи базы данных (Persistent Storage):</h4>
-                    <button onclick="clearDB()" style="background: none; border: none; color: #ff5f56; cursor: pointer; font-size: 12px; font-weight: 700;">[ОЧИСТИТЬ БД]</button>
+            
+            <div style="margin-top: 50px;">
+                <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <span style="font-size: 13px; color: #444; font-family: 'Fira Code', monospace;">[CONSOLE_LOG] ACTIVE_DATABASE_STREAM</span>
+                    <button onclick="clearDB()" style="background:none; border:none; color:#ff5f56; cursor:pointer; font-size:12px; font-weight: 600;">[ОЧИСТИТЬ БД]</button>
                 </div>
-                <div id="dbLog">
-                    </div>
+                <div id="dbLog"></div>
             </div>
         </div>
     </section>
 
     <section id="ecosystem">
         <div class="container">
-            <span class="section-label">Product Suite</span>
-            <h2 class="section-title">Единая инфраструктура</h2>
+            <span class="section-label">Powered by Bottle-1</span>
+            <h2 class="section-title">Сервисы экосистемы</h2>
             <div class="grid">
                 <div class="card">
                     <h3>🧪 LabAI</h3>
-                    <p>API для образовательных платформ. Генерация логики виртуальных экспериментов и пошаговых гайдов.</p>
+                    <p>API-эндпоинт для генерации логики виртуальных экспериментов и образовательных гайдов.</p>
                 </div>
                 <div class="card">
-                    <h3>⌨️ RummyCLI</h3>
-                    <p>Интеграция Senior-ментора в рабочее окружение. Анализ кода и рефакторинг через Bottle-1.</p>
+                    <h3>⌨️ Rummy CLI</h3>
+                    <p>Интеллектуальный помощник для разработчиков. Анализ кода и рефакторинг через терминал.</p>
                 </div>
                 <div class="card">
-                    <h3>🚀 Bottle-1</h3>
-                    <p>Базовое ядро модели. Минимальная задержка и оптимизация под технические задачи.</p>
+                    <h3>🛰️ Remote Core</h3>
+                    <p>Удаленный доступ к вычислительным мощностям Lumen Labs через защищенные туннели.</p>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="docs">
-        <div class="container">
-            <span class="section-label">Developer Experience</span>
-            <h2 class="section-title">API Интеграция</h2>
-            <div class="doc-console">
-                <div class="console-header">
-                    <div class="dot" style="background: #ff5f56;"></div>
-                    <div class="dot" style="background: #ffbd2e;"></div>
-                    <div class="dot" style="background: #27c93f;"></div>
-                    <span style="color: #444; font-size: 13px; margin-left: 10px;">example-request.py</span>
-                </div>
-                <pre><code><span class="highlight">import</span> requests
-
-url = <span class="highlight">"https://api.lumenlabs.kz/v1/chat"</span>
-payload = {
-    <span class="highlight">"model"</span>: "bottle-1-nano",
-    <span class="highlight">"message"</span>: "Объясни закон Ома для LabAI"
-}
-headers = {<span class="highlight">"Authorization"</span>: "Bearer YOUR_API_KEY"}
-
-response = requests.post(url, json=payload, headers=headers)
-<span class="highlight">print</span>(response.json())</code></pre>
             </div>
         </div>
     </section>
@@ -202,37 +247,28 @@ response = requests.post(url, json=payload, headers=headers)
     <section id="pricing">
         <div class="container">
             <span class="section-label">Scalability</span>
-            <h2 class="section-title">Тарифные планы</h2>
+            <h2 class="section-title">Тарифные планы API</h2>
             <div class="grid">
                 <div class="price-card">
-                    <h3>Free Tier</h3>
+                    <h3>Free</h3>
                     <div class="price-val">0₸<span>/мес</span></div>
                     <ul class="feature-list">
-                        <li>1,000 запросов / мес</li>
-                        <li>Bottle-1 Nano Core</li>
-                        <li>Community Support</li>
+                        <li>1,000 запросов</li>
+                        <li>Bottle-1 Core</li>
+                        <li>Community поддержка</li>
                     </ul>
-                    <a href="#console" class="btn btn-outline">Начать</a>
+                    <a href="#console" class="btn btn-outline" style="width:100%">Попробовать</a>
                 </div>
                 <div class="price-card featured">
-                    <h3>Developer</h3>
+                    <h3>Pro</h3>
                     <div class="price-val">4,900₸<span>/мес</span></div>
                     <ul class="feature-list">
                         <li>Безлимитные запросы</li>
-                        <li>Доступ к LabAI & Rummy API</li>
-                        <li>Приоритетная очередь</li>
+                        <li>API LabAI & Rummy</li>
+                        <li>Priority поддержка</li>
+                        <li>Beta-доступ</li>
                     </ul>
-                    <a href="#console" class="btn btn-primary">Выбрать</a>
-                </div>
-                <div class="price-card">
-                    <h3>Enterprise</h3>
-                    <div class="price-val">Custom</div>
-                    <ul class="feature-list">
-                        <li>Локальная установка</li>
-                        <li>Fine-tuning под данные</li>
-                        <li>SLA 99.9%</li>
-                    </ul>
-                    <a href="#team" class="btn btn-outline">Контакты</a>
+                    <a href="#console" class="btn btn-primary" style="width:100%">Выбрать Pro</a>
                 </div>
             </div>
         </div>
@@ -240,17 +276,16 @@ response = requests.post(url, json=payload, headers=headers)
 
     <section id="team">
         <div class="container">
-            <h2 class="section-title">Команда</h2>
             <div class="team-box">
                 <div class="team-info">
-                    <h3>Дияр — Founder & CEO</h3>
-                    <p style="color: var(--text-dim); margin-top: 10px;">14-летний разработчик из Астаны. Создатель экосистемы Lumen Labs и модели Bottle-1 Nano.</p>
+                    <h3 style="font-size: clamp(24px, 4vw, 36px); font-weight: 800; margin-bottom: 15px; color: #fff;">Дияр — Основатель Lumen Labs</h3>
+                    <p style="color: var(--text-dim); font-size: clamp(16px, 1.8vw, 19px);">14-летний разработчик. Мы создаем отечественный ИИ, чтобы сделать качественное образование и передовую разработку доступными каждому в Казахстане.</p>
                 </div>
                 <div class="team-values">
-                    <h4 style="color: var(--primary); margin-bottom: 10px;">Ценности</h4>
-                    <p>— Logic First</p>
-                    <p>— Build in Public</p>
-                    <p>— Local Product</p>
+                    <h4 style="color: var(--primary); margin-bottom: 12px; font-size: 18px;">Принципы:</h4>
+                    <p>— Speed (Скорость)</p>
+                    <p>— Local (Локальность)</p>
+                    <p>— Innovation (Инновации)</p>
                 </div>
             </div>
         </div>
@@ -259,67 +294,45 @@ response = requests.post(url, json=payload, headers=headers)
 
 <footer>
     <div class="container">
-        <p>© 2026 Lumen Labs | Astana, Kazakhstan | JasSkills-2025</p>
+        <p>© 2026 Lumen Labs Ecosystem | Разработано в Астане специально для JasSkills 2025.</p>
+        <p style="margin-top:5px; color: #222;">Core: Bottle-1 Nano | API V2.1</p>
     </div>
 </footer>
 
 <script>
-    // Рандомная генерация ключа в стиле Lumen Labs
-    function generateKey() {
-        const pattern = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-        let key = 'lm_';
-        for (let i = 0; i < 20; i++) {
-            key += pattern.charAt(Math.floor(Math.random() * pattern.length));
-        }
-        return key + '_v1';
-    }
-
-    // Сохранение в имитированную БД (localStorage)
+    // Генератор ключа в стиле Lumen Labs
     function generateAndSaveKey() {
-        const newKey = generateKey();
-        const date = new Date().toLocaleString();
-        
-        // Показ на UI
+        const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+        let key = 'lm_';
+        for (let i = 0; i < 12; i++) key += chars.charAt(Math.floor(Math.random() * chars.length));
+        key += '_v1_nano';
+
+        // Показываем ключ в UI
         const display = document.getElementById('keyDisplay');
         display.style.display = 'block';
-        display.innerText = newKey;
+        display.innerText = key;
 
-        // Запись в базу
-        let db = JSON.parse(localStorage.getItem('lumen_db') || '[]');
-        db.push({ key: newKey, timestamp: date });
-        localStorage.setItem('lumen_db', JSON.stringify(db));
+        // "Имитация БД": Сохраняем в localStorage
+        let db = JSON.parse(localStorage.getItem('lumen_v3_db') || '[]');
+        db.push({ key: key, time: new Date().toLocaleTimeString() });
+        localStorage.setItem('lumen_v3_db', JSON.stringify(db));
 
+        // Обновляем визуальный лог
         renderDB();
     }
 
-    // Рендер логов БД
+    // Рендер списка из БД
     function renderDB() {
-        const logContainer = document.getElementById('dbLog');
-        const db = JSON.parse(localStorage.getItem('lumen_db') || '[]');
+        const log = document.getElementById('dbLog');
+        const db = JSON.parse(localStorage.getItem('lumen_v3_db') || '[]');
         
-        if (db.length === 0) {
-            logContainer.innerHTML = '<p style="color: #444;">> Ожидание первой записи в БД...</p>';
-            return;
-        }
-
-        logContainer.innerHTML = db.reverse().map(item => `
-            <p style="margin-bottom: 8px;">
-                <span style="color: var(--primary)">[DB_COMMIT]</span> 
-                <span style="color: #444;">${item.timestamp}</span> — 
-                <span style="color: #fff;">${item.key}</span>
-            </p>
-        `).join('');
+        if (db.length === 0) { log.innerHTML = '> Склад ключей пуст. Ожидание записи...'; return; }
+        
+        log.innerHTML = db.reverse().map(i => `<p><span class="time">[${i.time}]</span> <span class="commit">[DB_COMMIT]</span> <span style="color:#00ff41">OK</span>: KEY="${i.key}"</p>`).join('');
     }
 
-    function clearDB() {
-        if (confirm('Очистить все записи в базе данных?')) {
-            localStorage.removeItem('lumen_db');
-            renderDB();
-            document.getElementById('keyDisplay').style.display = 'none';
-        }
-    }
-
-    // Инициализация при загрузке
+    // Очистка БД
+    function clearDB() { localStorage.removeItem('lumen_v3_db'); renderDB(); document.getElementById('keyDisplay').style.display='none'; }
     window.onload = renderDB;
 </script>
 
