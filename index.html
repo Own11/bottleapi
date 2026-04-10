@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1920"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>Lumen Labs | Bottle-1 Nano Ecosystem</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     
@@ -25,73 +25,79 @@
             background: var(--bg);
             color: var(--text);
             line-height: 1.6;
-            width: 1920px; /* Строго по заданию */
             overflow-x: hidden;
         }
 
         header {
             position: fixed;
-            top: 0; width: 1920px; z-index: 1000;
+            top: 0; width: 100%; z-index: 1000;
             display: flex; justify-content: space-between; align-items: center;
-            padding: 25px 120px; background: rgba(1, 1, 1, 0.85);
+            padding: 20px 5%; background: rgba(1, 1, 1, 0.85);
             backdrop-filter: blur(15px); border-bottom: 1px solid var(--border);
         }
-        .logo { font-size: 28px; font-weight: 900; text-decoration: none; color: #fff; letter-spacing: -1px; }
+        .logo { font-size: 24px; font-weight: 900; text-decoration: none; color: #fff; letter-spacing: -1px; }
         .logo span { color: var(--primary); }
         
-        nav ul { display: flex; gap: 40px; list-style: none; }
-        nav a { text-decoration: none; color: var(--text-dim); font-size: 16px; font-weight: 500; transition: 0.3s; }
+        nav ul { display: flex; gap: 30px; list-style: none; }
+        nav a { text-decoration: none; color: var(--text-dim); font-size: 15px; font-weight: 500; transition: 0.3s; }
         nav a:hover { color: var(--primary); }
 
-        .container { width: 1440px; margin: 0 auto; } /* Контейнер стал шире для 1920px экрана */
-        section { padding: 150px 0; border-bottom: 1px solid var(--border); }
-        .section-label { color: var(--primary); font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; display: block; }
-        .section-title { font-size: 64px; font-weight: 800; margin-bottom: 60px; letter-spacing: -2px; }
+        .container { width: 90%; max-width: 1440px; margin: 0 auto; }
+        section { padding: 100px 0; border-bottom: 1px solid var(--border); }
+        
+        .section-label { color: var(--primary); font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; display: block; }
+        .section-title { font-size: clamp(32px, 5vw, 64px); font-weight: 800; margin-bottom: 50px; letter-spacing: -1.5px; }
 
         /* Hero */
         .hero { 
-            text-align: center; padding: 250px 0 150px;
+            text-align: center; padding: 200px 0 100px;
             background: radial-gradient(circle at 50% 30%, rgba(0, 255, 65, 0.08) 0%, transparent 60%);
         }
-        h1 { font-size: 120px; font-weight: 900; line-height: 0.9; margin-bottom: 35px; letter-spacing: -5px; }
-        .hero-p { font-size: 24px; color: var(--text-dim); max-width: 900px; margin: 0 auto 50px; }
+        h1 { font-size: clamp(48px, 8vw, 110px); font-weight: 900; line-height: 0.9; margin-bottom: 30px; letter-spacing: -4px; }
+        .hero-p { font-size: clamp(18px, 2vw, 22px); color: var(--text-dim); max-width: 800px; margin: 0 auto 40px; }
 
-        .btn-group { display: flex; gap: 20px; justify-content: center; }
-        .btn { cursor: pointer; padding: 22px 45px; border-radius: 12px; font-weight: 700; text-decoration: none; transition: 0.3s; border: none; font-size: 18px; }
+        .btn-group { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        .btn { cursor: pointer; padding: 18px 35px; border-radius: 12px; font-weight: 700; text-decoration: none; transition: 0.3s; border: none; font-size: 16px; display: inline-block; }
         .btn-primary { background: var(--primary); color: #000; }
         .btn-outline { border: 1px solid var(--border); background: transparent; color: #fff; }
         .btn:hover { transform: translateY(-3px); box-shadow: var(--glow); }
 
-        /* Grid System */
-        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-        .card { background: var(--card-bg); padding: 50px; border-radius: 32px; border: 1px solid var(--border); transition: 0.4s; }
-        .card:hover { border-color: var(--primary); transform: translateY(-10px); }
-        .card h3 { font-size: 32px; margin-bottom: 20px; color: var(--primary); }
-        .card p { font-size: 18px; color: var(--text-dim); }
+        /* Grid */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .card { background: var(--card-bg); padding: 40px; border-radius: 24px; border: 1px solid var(--border); transition: 0.4s; }
+        .card:hover { border-color: var(--primary); transform: translateY(-8px); }
+        .card h3 { font-size: 28px; margin-bottom: 15px; color: var(--primary); }
 
-        /* Console */
-        .doc-console { background: #050505; border: 1px solid var(--border); border-radius: 20px; overflow: hidden; margin-top: 40px; }
-        .console-header { background: #111; padding: 15px 25px; display: flex; gap: 10px; border-bottom: 1px solid var(--border); }
-        .dot { width: 12px; height: 12px; border-radius: 50%; }
-        pre { padding: 35px; font-family: 'Fira Code', monospace; color: #888; font-size: 18px; background: #000; line-height: 1.7; }
+        /* Console & Keys */
+        .doc-console { background: #050505; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-top: 30px; }
+        .console-header { background: #111; padding: 12px 20px; display: flex; gap: 8px; border-bottom: 1px solid var(--border); align-items: center; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+        pre { padding: 25px; font-family: 'Fira Code', monospace; color: #888; font-size: clamp(14px, 1.5vw, 17px); background: #000; line-height: 1.6; overflow-x: auto; }
         .highlight { color: var(--primary); }
 
+        #dbLog { background: #000; border: 1px solid var(--border); border-radius: 12px; padding: 20px; font-family: 'Fira Code', monospace; font-size: 14px; color: #666; max-height: 250px; overflow-y: auto; margin-top: 20px; }
+
         /* Pricing */
-        .price-card { background: var(--surface); padding: 60px 40px; border-radius: 32px; border: 1px solid var(--border); text-align: center; }
-        .price-card.featured { border-color: var(--primary); background: rgba(0, 255, 65, 0.04); transform: scale(1.05); }
-        .price-val { font-size: 64px; font-weight: 800; margin: 30px 0; }
-        .feature-list { list-style: none; text-align: left; margin-bottom: 40px; font-size: 16px; color: var(--text-dim); }
-        .feature-list li { margin-bottom: 15px; display: flex; align-items: center; }
-        .feature-list li::before { content: "✓"; color: var(--primary); margin-right: 15px; font-weight: 900; }
+        .price-card { background: var(--surface); padding: 50px 30px; border-radius: 24px; border: 1px solid var(--border); text-align: center; display: flex; flex-direction: column; }
+        .price-card.featured { border-color: var(--primary); background: rgba(0, 255, 65, 0.04); transform: scale(1.03); }
+        .price-val { font-size: 48px; font-weight: 800; margin: 25px 0; }
+        .feature-list { list-style: none; text-align: left; margin-bottom: 30px; font-size: 15px; color: var(--text-dim); flex-grow: 1; }
+        .feature-list li { margin-bottom: 12px; display: flex; align-items: center; }
+        .feature-list li::before { content: "✓"; color: var(--primary); margin-right: 12px; font-weight: 900; }
 
-        /* Team Section (New) */
-        .team-box { display: flex; gap: 60px; background: var(--surface); padding: 60px; border-radius: 32px; border: 1px solid var(--border); align-items: center; }
+        /* Team */
+        .team-box { display: flex; gap: 40px; background: var(--surface); padding: 50px; border-radius: 24px; border: 1px solid var(--border); align-items: center; }
         .team-info { flex: 2; }
-        .team-values { flex: 1; border-left: 1px solid var(--border); padding-left: 60px; }
-        .team-values h4 { color: var(--primary); margin-bottom: 20px; font-size: 22px; }
-        .team-values p { font-size: 16px; color: var(--text-dim); margin-bottom: 15px; }
+        .team-values { flex: 1; border-left: 1px solid var(--border); padding-left: 40px; }
 
-        footer { padding: 80px 0; text-align: center; color: #444; font-size: 15px; border-top: 1px solid var(--border); }
+        footer { padding: 60px 0; text-align: center; color: #444; font-size: 14px; border-top: 1px solid var(--border); }
+
+        @media (max-width: 768px) {
+            header { padding: 15px 5%; flex-direction: column; gap: 15px; }
+            .hero { padding: 160px 0 60px; }
+            .team-box { flex-direction: column; }
+            .team-values { border-left: none; border-top: 1px solid var(--border); padding-top: 20px; padding-left: 0; }
+        }
     </style>
 </head>
 <body>
@@ -101,9 +107,9 @@
     <nav>
         <ul>
             <li><a href="#ecosystem">Продукты</a></li>
+            <li><a href="#console">Консоль</a></li>
             <li><a href="#docs">Документация</a></li>
             <li><a href="#pricing">Тарифы</a></li>
-            <li><a href="#team">Команда</a></li>
         </ul>
     </nav>
 </header>
@@ -115,8 +121,33 @@
             <h1>Bottle-1 Nano</h1>
             <p class="hero-p">Собственная языковая модель и высокопроизводительная API-экосистема. Интеллектуальное ядро для проектов LabAI и Rummy CLI.</p>
             <div class="btn-group">
-                <a href="#docs" class="btn btn-primary">Попробовать API</a>
+                <a href="#console" class="btn btn-primary">Сгенерировать ключ</a>
                 <a href="#ecosystem" class="btn btn-outline">Наши продукты</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="console">
+        <div class="container">
+            <span class="section-label">Lumen Cloud Console</span>
+            <h2 class="section-title">Управление доступом</h2>
+            
+            <div class="card" style="max-width: 800px; margin: 0 auto; text-align: center; border-color: var(--primary);">
+                <p style="margin-bottom: 25px; color: var(--text-dim);">Генерация уникальных API-ключей с автоматической записью в реестр базы данных Lumen Labs.</p>
+                
+                <div id="keyDisplay" style="display: none; background: #000; border: 1px dashed var(--primary); padding: 20px; border-radius: 12px; margin-bottom: 25px; font-family: 'Fira Code', monospace; color: var(--primary); font-size: clamp(16px, 2vw, 24px); word-break: break-all;">
+                </div>
+
+                <button onclick="generateAndSaveKey()" class="btn btn-primary">Сгенерировать API Key</button>
+            </div>
+
+            <div style="margin-top: 60px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h4 style="color: var(--text-dim);">Логи базы данных (Persistent Storage):</h4>
+                    <button onclick="clearDB()" style="background: none; border: none; color: #ff5f56; cursor: pointer; font-size: 12px; font-weight: 700;">[ОЧИСТИТЬ БД]</button>
+                </div>
+                <div id="dbLog">
+                    </div>
             </div>
         </div>
     </section>
@@ -128,15 +159,15 @@
             <div class="grid">
                 <div class="card">
                     <h3>🧪 LabAI</h3>
-                    <p>Специализированный API для образовательных платформ. Генерация логики виртуальных экспериментов и пошаговых гайдов.</p>
+                    <p>API для образовательных платформ. Генерация логики виртуальных экспериментов и пошаговых гайдов.</p>
                 </div>
                 <div class="card">
                     <h3>⌨️ RummyCLI</h3>
-                    <p>Интеграция Senior-ментора в рабочее окружение. Анализ кода и рефакторинг через прямое соединение с Bottle-1.</p>
+                    <p>Интеграция Senior-ментора в рабочее окружение. Анализ кода и рефакторинг через Bottle-1.</p>
                 </div>
                 <div class="card">
-                    <h3>🚀 Bottle-1 Core</h3>
-                    <p>Базовое ядро модели. Минимальная задержка и оптимизация под технические и математические задачи.</p>
+                    <h3>🚀 Bottle-1</h3>
+                    <p>Базовое ядро модели. Минимальная задержка и оптимизация под технические задачи.</p>
                 </div>
             </div>
         </div>
@@ -151,18 +182,18 @@
                     <div class="dot" style="background: #ff5f56;"></div>
                     <div class="dot" style="background: #ffbd2e;"></div>
                     <div class="dot" style="background: #27c93f;"></div>
-                    <span style="color: #444; font-size: 14px; margin-left: 10px;">terminal — bottle-request.py</span>
+                    <span style="color: #444; font-size: 13px; margin-left: 10px;">example-request.py</span>
                 </div>
                 <pre><code><span class="highlight">import</span> requests
 
 url = <span class="highlight">"https://api.lumenlabs.kz/v1/chat"</span>
 payload = {
     <span class="highlight">"model"</span>: "bottle-1-nano",
-    <span class="highlight">"prompt"</span>: "Объясни закон Ома для LabAI",
-    <span class="highlight">"api_key"</span>: "lm_key_astana_2026"
+    <span class="highlight">"message"</span>: "Объясни закон Ома для LabAI"
 }
+headers = {<span class="highlight">"Authorization"</span>: "Bearer YOUR_API_KEY"}
 
-response = requests.post(url, json=payload)
+response = requests.post(url, json=payload, headers=headers)
 <span class="highlight">print</span>(response.json())</code></pre>
             </div>
         </div>
@@ -170,18 +201,18 @@ response = requests.post(url, json=payload)
 
     <section id="pricing">
         <div class="container">
-            <span class="section-label">Scalability & Costs</span>
+            <span class="section-label">Scalability</span>
             <h2 class="section-title">Тарифные планы</h2>
             <div class="grid">
                 <div class="price-card">
                     <h3>Free Tier</h3>
                     <div class="price-val">0₸<span>/мес</span></div>
                     <ul class="feature-list">
-                        <li>1,000 запросов в месяц</li>
+                        <li>1,000 запросов / мес</li>
                         <li>Bottle-1 Nano Core</li>
                         <li>Community Support</li>
                     </ul>
-                    <a href="#docs" class="btn btn-outline" style="display:block">Начать</a>
+                    <a href="#console" class="btn btn-outline">Начать</a>
                 </div>
                 <div class="price-card featured">
                     <h3>Developer</h3>
@@ -189,21 +220,19 @@ response = requests.post(url, json=payload)
                     <ul class="feature-list">
                         <li>Безлимитные запросы</li>
                         <li>Доступ к LabAI & Rummy API</li>
-                        <li>Приоритетная обработка</li>
-                        <li>Beta-доступ к новым весам</li>
+                        <li>Приоритетная очередь</li>
                     </ul>
-                    <a href="#docs" class="btn btn-primary" style="display:block">Выбрать</a>
+                    <a href="#console" class="btn btn-primary">Выбрать</a>
                 </div>
                 <div class="price-card">
                     <h3>Enterprise</h3>
                     <div class="price-val">Custom</div>
                     <ul class="feature-list">
+                        <li>Локальная установка</li>
+                        <li>Fine-tuning под данные</li>
                         <li>SLA 99.9%</li>
-                        <li>Локальная установка на сервер</li>
-                        <li>Fine-tuning под ваши данные</li>
-                        <li>24/7 Личный менеджер</li>
                     </ul>
-                    <a href="#team" class="btn btn-outline" style="display:block">Контакты</a>
+                    <a href="#team" class="btn btn-outline">Контакты</a>
                 </div>
             </div>
         </div>
@@ -211,18 +240,17 @@ response = requests.post(url, json=payload)
 
     <section id="team">
         <div class="container">
-            <span class="section-label">Our Team</span>
-            <h2 class="section-title">Кто создает будущее</h2>
+            <h2 class="section-title">Команда</h2>
             <div class="team-box">
                 <div class="team-info">
-                    <h3 style="font-size: 36px; margin-bottom: 20px;">Дияр — Founder & CEO</h3>
-                    <p style="font-size: 20px; color: var(--text-dim);">14-летний разработчик и основатель Lumen Labs. Городской олимпиадник, создающий инновационные решения в области ИИ и EdTech в Астане.</p>
+                    <h3>Дияр — Founder & CEO</h3>
+                    <p style="color: var(--text-dim); margin-top: 10px;">14-летний разработчик из Астаны. Создатель экосистемы Lumen Labs и модели Bottle-1 Nano.</p>
                 </div>
                 <div class="team-values">
-                    <h4>Наши ценности</h4>
-                    <p>— <strong>Build Fast:</strong> От идеи до кода за часы.</p>
-                    <p>— <strong>Logic First:</strong> Понимание важнее ответа.</p>
-                    <p>— <strong>Local Impact:</strong> Технологии мирового уровня из КЗ.</p>
+                    <h4 style="color: var(--primary); margin-bottom: 10px;">Ценности</h4>
+                    <p>— Logic First</p>
+                    <p>— Build in Public</p>
+                    <p>— Local Product</p>
                 </div>
             </div>
         </div>
@@ -231,9 +259,69 @@ response = requests.post(url, json=payload)
 
 <footer>
     <div class="container">
-        <p>© 2026 Lumen Labs | Создано Дияром для JasSkills Astana-2025. Все права защищены.</p>
+        <p>© 2026 Lumen Labs | Astana, Kazakhstan | JasSkills-2025</p>
     </div>
 </footer>
+
+<script>
+    // Рандомная генерация ключа в стиле Lumen Labs
+    function generateKey() {
+        const pattern = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        let key = 'lm_';
+        for (let i = 0; i < 20; i++) {
+            key += pattern.charAt(Math.floor(Math.random() * pattern.length));
+        }
+        return key + '_v1';
+    }
+
+    // Сохранение в имитированную БД (localStorage)
+    function generateAndSaveKey() {
+        const newKey = generateKey();
+        const date = new Date().toLocaleString();
+        
+        // Показ на UI
+        const display = document.getElementById('keyDisplay');
+        display.style.display = 'block';
+        display.innerText = newKey;
+
+        // Запись в базу
+        let db = JSON.parse(localStorage.getItem('lumen_db') || '[]');
+        db.push({ key: newKey, timestamp: date });
+        localStorage.setItem('lumen_db', JSON.stringify(db));
+
+        renderDB();
+    }
+
+    // Рендер логов БД
+    function renderDB() {
+        const logContainer = document.getElementById('dbLog');
+        const db = JSON.parse(localStorage.getItem('lumen_db') || '[]');
+        
+        if (db.length === 0) {
+            logContainer.innerHTML = '<p style="color: #444;">> Ожидание первой записи в БД...</p>';
+            return;
+        }
+
+        logContainer.innerHTML = db.reverse().map(item => `
+            <p style="margin-bottom: 8px;">
+                <span style="color: var(--primary)">[DB_COMMIT]</span> 
+                <span style="color: #444;">${item.timestamp}</span> — 
+                <span style="color: #fff;">${item.key}</span>
+            </p>
+        `).join('');
+    }
+
+    function clearDB() {
+        if (confirm('Очистить все записи в базе данных?')) {
+            localStorage.removeItem('lumen_db');
+            renderDB();
+            document.getElementById('keyDisplay').style.display = 'none';
+        }
+    }
+
+    // Инициализация при загрузке
+    window.onload = renderDB;
+</script>
 
 </body>
 </html>
