@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920"> 
+    <title>Lumen Labs | Bottle-1 Nano Ecosystem</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #00ff41; 
+            --bg: #010101;
+            --surface: #0a0a0c;
+            --card-bg: #0f0f12;
+            --text: #ffffff;
+            --text-dim: #9494a0;
+            --border: #1e1e24;
+            --glow: 0 0 20px rgba(0, 255, 65, 0.2);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            width: 1920px; /* Строго по заданию */
+            overflow-x: hidden;
+        }
+
+        header {
+            position: fixed;
+            top: 0; width: 1920px; z-index: 1000;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 25px 120px; background: rgba(1, 1, 1, 0.85);
+            backdrop-filter: blur(15px); border-bottom: 1px solid var(--border);
+        }
+        .logo { font-size: 28px; font-weight: 900; text-decoration: none; color: #fff; letter-spacing: -1px; }
+        .logo span { color: var(--primary); }
+        
+        nav ul { display: flex; gap: 40px; list-style: none; }
+        nav a { text-decoration: none; color: var(--text-dim); font-size: 16px; font-weight: 500; transition: 0.3s; }
+        nav a:hover { color: var(--primary); }
+
+        .container { width: 1440px; margin: 0 auto; } /* Контейнер стал шире для 1920px экрана */
+        section { padding: 150px 0; border-bottom: 1px solid var(--border); }
+        .section-label { color: var(--primary); font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; display: block; }
+        .section-title { font-size: 64px; font-weight: 800; margin-bottom: 60px; letter-spacing: -2px; }
+
+        /* Hero */
+        .hero { 
+            text-align: center; padding: 250px 0 150px;
+            background: radial-gradient(circle at 50% 30%, rgba(0, 255, 65, 0.08) 0%, transparent 60%);
+        }
+        h1 { font-size: 120px; font-weight: 900; line-height: 0.9; margin-bottom: 35px; letter-spacing: -5px; }
+        .hero-p { font-size: 24px; color: var(--text-dim); max-width: 900px; margin: 0 auto 50px; }
+
+        .btn-group { display: flex; gap: 20px; justify-content: center; }
+        .btn { cursor: pointer; padding: 22px 45px; border-radius: 12px; font-weight: 700; text-decoration: none; transition: 0.3s; border: none; font-size: 18px; }
+        .btn-primary { background: var(--primary); color: #000; }
+        .btn-outline { border: 1px solid var(--border); background: transparent; color: #fff; }
+        .btn:hover { transform: translateY(-3px); box-shadow: var(--glow); }
+
+        /* Grid System */
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .card { background: var(--card-bg); padding: 50px; border-radius: 32px; border: 1px solid var(--border); transition: 0.4s; }
+        .card:hover { border-color: var(--primary); transform: translateY(-10px); }
+        .card h3 { font-size: 32px; margin-bottom: 20px; color: var(--primary); }
+        .card p { font-size: 18px; color: var(--text-dim); }
+
+        /* Console */
+        .doc-console { background: #050505; border: 1px solid var(--border); border-radius: 20px; overflow: hidden; margin-top: 40px; }
+        .console-header { background: #111; padding: 15px 25px; display: flex; gap: 10px; border-bottom: 1px solid var(--border); }
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        pre { padding: 35px; font-family: 'Fira Code', monospace; color: #888; font-size: 18px; background: #000; line-height: 1.7; }
+        .highlight { color: var(--primary); }
+
+        /* Pricing */
+        .price-card { background: var(--surface); padding: 60px 40px; border-radius: 32px; border: 1px solid var(--border); text-align: center; }
+        .price-card.featured { border-color: var(--primary); background: rgba(0, 255, 65, 0.04); transform: scale(1.05); }
+        .price-val { font-size: 64px; font-weight: 800; margin: 30px 0; }
+        .feature-list { list-style: none; text-align: left; margin-bottom: 40px; font-size: 16px; color: var(--text-dim); }
+        .feature-list li { margin-bottom: 15px; display: flex; align-items: center; }
+        .feature-list li::before { content: "✓"; color: var(--primary); margin-right: 15px; font-weight: 900; }
+
+        /* Team Section (New) */
+        .team-box { display: flex; gap: 60px; background: var(--surface); padding: 60px; border-radius: 32px; border: 1px solid var(--border); align-items: center; }
+        .team-info { flex: 2; }
+        .team-values { flex: 1; border-left: 1px solid var(--border); padding-left: 60px; }
+        .team-values h4 { color: var(--primary); margin-bottom: 20px; font-size: 22px; }
+        .team-values p { font-size: 16px; color: var(--text-dim); margin-bottom: 15px; }
+
+        footer { padding: 80px 0; text-align: center; color: #444; font-size: 15px; border-top: 1px solid var(--border); }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="#home" class="logo">LUMEN<span>LABS</span></a>
+    <nav>
+        <ul>
+            <li><a href="#ecosystem">Продукты</a></li>
+            <li><a href="#docs">Документация</a></li>
+            <li><a href="#pricing">Тарифы</a></li>
+            <li><a href="#team">Команда</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section class="hero" id="home">
+        <div class="container">
+            <span class="section-label">Astana Tech Innovation · 2026</span>
+            <h1>Bottle-1 Nano</h1>
+            <p class="hero-p">Собственная языковая модель и высокопроизводительная API-экосистема. Интеллектуальное ядро для проектов LabAI и Rummy CLI.</p>
+            <div class="btn-group">
+                <a href="#docs" class="btn btn-primary">Попробовать API</a>
+                <a href="#ecosystem" class="btn btn-outline">Наши продукты</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="ecosystem">
+        <div class="container">
+            <span class="section-label">Product Suite</span>
+            <h2 class="section-title">Единая инфраструктура</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>🧪 LabAI</h3>
+                    <p>Специализированный API для образовательных платформ. Генерация логики виртуальных экспериментов и пошаговых гайдов.</p>
+                </div>
+                <div class="card">
+                    <h3>⌨️ RummyCLI</h3>
+                    <p>Интеграция Senior-ментора в рабочее окружение. Анализ кода и рефакторинг через прямое соединение с Bottle-1.</p>
+                </div>
+                <div class="card">
+                    <h3>🚀 Bottle-1 Core</h3>
+                    <p>Базовое ядро модели. Минимальная задержка и оптимизация под технические и математические задачи.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="docs">
+        <div class="container">
+            <span class="section-label">Developer Experience</span>
+            <h2 class="section-title">API Интеграция</h2>
+            <div class="doc-console">
+                <div class="console-header">
+                    <div class="dot" style="background: #ff5f56;"></div>
+                    <div class="dot" style="background: #ffbd2e;"></div>
+                    <div class="dot" style="background: #27c93f;"></div>
+                    <span style="color: #444; font-size: 14px; margin-left: 10px;">terminal — bottle-request.py</span>
+                </div>
+                <pre><code><span class="highlight">import</span> requests
+
+url = <span class="highlight">"https://api.lumenlabs.kz/v1/chat"</span>
+payload = {
+    <span class="highlight">"model"</span>: "bottle-1-nano",
+    <span class="highlight">"prompt"</span>: "Объясни закон Ома для LabAI",
+    <span class="highlight">"api_key"</span>: "lm_key_astana_2026"
+}
+
+response = requests.post(url, json=payload)
+<span class="highlight">print</span>(response.json())</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing">
+        <div class="container">
+            <span class="section-label">Scalability & Costs</span>
+            <h2 class="section-title">Тарифные планы</h2>
+            <div class="grid">
+                <div class="price-card">
+                    <h3>Free Tier</h3>
+                    <div class="price-val">0₸<span>/мес</span></div>
+                    <ul class="feature-list">
+                        <li>1,000 запросов в месяц</li>
+                        <li>Bottle-1 Nano Core</li>
+                        <li>Community Support</li>
+                    </ul>
+                    <a href="#docs" class="btn btn-outline" style="display:block">Начать</a>
+                </div>
+                <div class="price-card featured">
+                    <h3>Developer</h3>
+                    <div class="price-val">4,900₸<span>/мес</span></div>
+                    <ul class="feature-list">
+                        <li>Безлимитные запросы</li>
+                        <li>Доступ к LabAI & Rummy API</li>
+                        <li>Приоритетная обработка</li>
+                        <li>Beta-доступ к новым весам</li>
+                    </ul>
+                    <a href="#docs" class="btn btn-primary" style="display:block">Выбрать</a>
+                </div>
+                <div class="price-card">
+                    <h3>Enterprise</h3>
+                    <div class="price-val">Custom</div>
+                    <ul class="feature-list">
+                        <li>SLA 99.9%</li>
+                        <li>Локальная установка на сервер</li>
+                        <li>Fine-tuning под ваши данные</li>
+                        <li>24/7 Личный менеджер</li>
+                    </ul>
+                    <a href="#team" class="btn btn-outline" style="display:block">Контакты</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="team">
+        <div class="container">
+            <span class="section-label">Our Team</span>
+            <h2 class="section-title">Кто создает будущее</h2>
+            <div class="team-box">
+                <div class="team-info">
+                    <h3 style="font-size: 36px; margin-bottom: 20px;">Дияр — Founder & CEO</h3>
+                    <p style="font-size: 20px; color: var(--text-dim);">14-летний разработчик и основатель Lumen Labs. Городской олимпиадник, создающий инновационные решения в области ИИ и EdTech в Астане.</p>
+                </div>
+                <div class="team-values">
+                    <h4>Наши ценности</h4>
+                    <p>— <strong>Build Fast:</strong> От идеи до кода за часы.</p>
+                    <p>— <strong>Logic First:</strong> Понимание важнее ответа.</p>
+                    <p>— <strong>Local Impact:</strong> Технологии мирового уровня из КЗ.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <p>© 2026 Lumen Labs | Создано Дияром для JasSkills Astana-2025. Все права защищены.</p>
+    </div>
+</footer>
+
+</body>
+</html>
