@@ -1,243 +1,225 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Lumen Labs | Bottle-1 Nano AI Ecosystem</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>LumenLabs | Bottle-1</title>
 
 <style>
 :root{
-  --primary:#00ff41;
-  --bg:#010101;
-  --surface:#0a0a0c;
-  --card:#0f0f12;
-  --text:#fff;
-  --dim:#9aa0a6;
-  --border:#1f1f25;
-  --glow:0 0 25px rgba(0,255,65,.25);
-  --radius:18px;
+  --bg:#050505;
+  --panel:#0b0b0f;
+  --border:#1a1a22;
+  --text:#ffffff;
+  --muted:#9aa0a6;
+  --green:#00ff41;
 }
 
-*{margin:0;padding:0;box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,Arial,sans-serif;}
 
 body{
-  font-family:Inter,sans-serif;
-  background:radial-gradient(circle at 30% 20%,rgba(0,255,65,.06),transparent 50%),var(--bg);
+  background:var(--bg);
   color:var(--text);
-  overflow-x:hidden;
-}
-
-.container{max-width:1100px;margin:auto;padding:0 20px}
-
-header{
-  position:fixed;
-  top:0;
-  width:100%;
-  z-index:1000;
-  background:rgba(1,1,1,.7);
-  backdrop-filter:blur(16px);
-  border-bottom:1px solid var(--border);
-}
-
-header .container{
+  height:100vh;
   display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:16px 0;
+}
+
+/* SIDEBAR */
+.sidebar{
+  width:260px;
+  background:var(--panel);
+  border-right:1px solid var(--border);
+  padding:20px;
+  display:flex;
+  flex-direction:column;
 }
 
 .logo{
+  font-size:18px;
   font-weight:900;
-  font-size:20px;
+}
+
+.logo span{color:var(--green)}
+
+.nav{
+  margin-top:30px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.nav div{
+  padding:10px;
+  color:var(--muted);
+  cursor:pointer;
+  border-radius:8px;
+}
+
+.nav div:hover{
+  background:#111;
   color:#fff;
-  text-decoration:none;
-}
-
-.logo span{color:var(--primary)}
-
-nav a{
-  color:var(--dim);
-  margin-left:18px;
-  text-decoration:none;
-  font-size:13px;
-}
-
-nav a:hover{color:var(--primary)}
-
-.hero{
-  padding:160px 0 60px;
-  text-align:center;
-}
-
-h1{
-  font-size:clamp(42px,7vw,86px);
-  letter-spacing:-2px;
-}
-
-.hero p{
-  color:var(--dim);
-  max-width:720px;
-  margin:18px auto;
 }
 
 .btn{
-  padding:14px 22px;
-  border-radius:12px;
+  margin-top:auto;
+  padding:12px;
+  background:var(--green);
+  color:#000;
   font-weight:700;
   border:none;
+  border-radius:10px;
   cursor:pointer;
-  transition:.25s;
 }
 
-.btn-primary{
-  background:var(--primary);
-  color:#000;
+/* MAIN */
+.main{
+  flex:1;
+  padding:20px;
+  overflow:auto;
 }
 
-.btn-outline{
-  background:transparent;
+h1{
+  font-size:28px;
+  margin-bottom:20px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+
+.card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  padding:15px;
+  border-radius:12px;
+}
+
+.card p{
+  color:var(--muted);
+  font-size:13px;
+}
+
+.card h2{
+  margin-top:10px;
+  color:var(--green);
+}
+
+.section{
+  margin-top:20px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  padding:15px;
+  border-radius:12px;
+}
+
+input{
+  width:100%;
+  padding:10px;
+  background:#000;
   border:1px solid var(--border);
   color:#fff;
+  border-radius:8px;
 }
 
-.btn:hover{
-  transform:translateY(-3px);
-  box-shadow:var(--glow);
+.key-item{
+  display:flex;
+  justify-content:space-between;
+  padding:8px;
+  border-bottom:1px solid #111;
+  font-family:monospace;
+  font-size:12px;
 }
 
-.console{
-  margin-top:40px;
-  display:grid;
-  grid-template-columns:1.2fr .8fr;
-  gap:24px;
-}
+.green{color:var(--green)}
 
 @media(max-width:900px){
-  .console{grid-template-columns:1fr}
-}
-
-.box{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:22px;
-  padding:24px;
-}
-
-#keyDisplay{
-  display:none;
-  font-family:"Fira Code",monospace;
-  background:#000;
-  padding:14px;
-  border-radius:10px;
-  border:1px dashed var(--primary);
-  color:var(--primary);
-  margin:12px 0;
-  word-break:break-all;
-}
-
-#dbLog{
-  margin-top:12px;
-  font-family:"Fira Code",monospace;
-  font-size:12px;
-  color:#777;
-  max-height:200px;
-  overflow:auto;
-  border-left:2px solid var(--border);
-  padding-left:10px;
-}
-
-footer{
-  text-align:center;
-  padding:50px 0;
-  color:#333;
-  border-top:1px solid var(--border);
-  margin-top:60px;
+  .grid{grid-template-columns:1fr;}
+  .sidebar{display:none;}
 }
 </style>
 </head>
-
 <body>
 
-<header>
-  <div class="container">
-    <a class="logo">LUMEN<span>LABS</span></a>
-    <nav>
-      <a href="#console">Console</a>
-      <a href="#ecosystem">Services</a>
-    </nav>
-  </div>
-</header>
+<div class="sidebar">
+  <div class="logo">LUMEN <span>LABS</span></div>
 
-<section class="hero">
-  <div class="container">
-    <h1>Bottle-1 Nano</h1>
-    <p>AI ecosystem for education and developer tools.</p>
-    <div>
-      <a href="#console" class="btn btn-primary">Generate API Key</a>
-      <a href="#console" class="btn btn-outline">Open Console</a>
+  <div class="nav">
+    <div>Dashboard</div>
+    <div>API Keys</div>
+    <div>Logs</div>
+    <div>Settings</div>
+  </div>
+
+  <button class="btn" onclick="generateKey()">Generate Key</button>
+</div>
+
+<div class="main">
+  <h1>Developer Dashboard</h1>
+
+  <div class="grid">
+    <div class="card">
+      <p>Active Keys</p>
+      <h2 id="keyCount">0</h2>
     </div>
 
-    <div class="console" id="console">
+    <div class="card">
+      <p>Requests</p>
+      <h2>1284</h2>
+    </div>
 
-      <div class="box">
-        <h3>API Console</h3>
-        <p style="color:#777;font-size:13px">Generate secure API keys</p>
-
-        <div id="keyDisplay"></div>
-        <button class="btn btn-primary" onclick="generateKey()">Generate Key</button>
-
-        <button class="btn btn-outline" onclick="clearDB()" style="margin-left:8px">Clear DB</button>
-
-        <div id="dbLog"></div>
-      </div>
-
-      <div class="box">
-        <h3>System</h3>
-        <p style="color:#888">LocalStorage DB simulation active</p>
-      </div>
-
+    <div class="card">
+      <p>Latency</p>
+      <h2>42ms</h2>
     </div>
   </div>
-</section>
 
-<footer>
-  © 2026 Lumen Labs
-</footer>
+  <div class="section">
+    <p style="color:#9aa0a6;font-size:13px">Manual API Key Input</p>
+    <input id="manualKey" placeholder="Enter API key..." />
+    <button class="btn" style="margin-top:10px" onclick="addManualKey()">Add Key</button>
+  </div>
+
+  <div class="section">
+    <p style="color:#9aa0a6;font-size:13px">API Keys</p>
+    <div id="list"></div>
+  </div>
+</div>
 
 <script>
+let keys=[];
+
 function generateKey(){
   const chars="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-  let key="lm_";
-  for(let i=0;i<12;i++) key+=chars[Math.floor(Math.random()*chars.length)];
-  key+="_v1";
+  let k="ll_";
+  for(let i=0;i<16;i++) k+=chars[Math.floor(Math.random()*chars.length)];
 
-  const display=document.getElementById("keyDisplay");
-  display.style.display="block";
-  display.innerText=key;
-
-  let db=JSON.parse(localStorage.getItem("lumen_db")||"[]");
-  db.push({key,time:new Date().toLocaleTimeString()});
-  localStorage.setItem("lumen_db",JSON.stringify(db));
-
-  renderDB();
+  keys.unshift({value:k,time:new Date().toLocaleTimeString()});
+  update();
 }
 
-function renderDB(){
-  const log=document.getElementById("dbLog");
-  let db=JSON.parse(localStorage.getItem("lumen_db")||"[]");
+function addManualKey(){
+  const input=document.getElementById("manualKey");
+  if(!input.value) return;
 
-  if(!db.length){
-    log.innerHTML="No records";
-    return;
-  }
-
-  log.innerHTML=db.slice().reverse().map(i=>
-    `[${i.time}] KEY=${i.key}`
-  ).join("<br>");
+  keys.unshift({value:input.value,time:new Date().toLocaleTimeString()});
+  input.value="";
+  update();
 }
 
-function clearDB(){
-  localStorage.removeItem("lumen_db");
-  document.getElementById("keyDisplay").style.display="none";
-  ren
+function update(){
+  document.getElementById("keyCount").innerText=keys.length;
+
+  const list=document.getElementById("list");
+  list.innerHTML=keys.map(k=>`
+    <div class="key-item">
+      <span class="green">${k.value}</span>
+      <span>${k.time}</span>
+    </div>
+  `).join("");
+}
+</script>
+
+</body>
+</html>
