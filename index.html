@@ -1,287 +1,666 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Lumen Labs — SaaS Platform</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Lumen Labs | Bottle-1 Nano AI Ecosystem</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800;14..32,900&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<style>
-:root{
-  --bg:#050505;
-  --panel:#0b0b10;
-  --border:#1a1a22;
-  --text:#ffffff;
-  --muted:#9aa0a6;
-  --green:#00ff41;
-  --blue:#4da3ff;
-}
+        body {
+            background-color: #010101;
+            font-family: 'Inter', sans-serif;
+            color: #ffffff;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
 
-*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,Arial;}
-body{background:var(--bg);color:var(--text);overflow-x:hidden;}
+        :root {
+            --primary: #00f74d;
+            --primary-glow: rgba(0, 247, 77, 0.25);
+            --bg-elevated: #0b0b0f;
+            --card-bg: #0f0f14;
+            --border-subtle: #1c1c22;
+            --text-dim: #9e9eae;
+            --transition-smooth: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
 
-a{color:inherit;text-decoration:none;}
+        /* canvas-like background */
+        .noise-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            background-image: radial-gradient(circle at 25% 40%, rgba(0,247,77,0.02) 0%, transparent 50%);
+        }
 
-/* NAV */
-.navbar{
-  position:fixed;
-  top:0;left:0;right:0;
-  height:60px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:0 20px;
-  background:rgba(5,5,5,.7);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--border);
-  z-index:1000;
-}
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 28px;
+            position: relative;
+            z-index: 2;
+        }
 
-.logo{font-weight:900;}
-.logo span{color:var(--green);}
+        /* HEADER — clean & minimal */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(16px);
+            background: rgba(1, 1, 1, 0.65);
+            border-bottom: 1px solid rgba(28, 28, 34, 0.6);
+            padding: 18px 0;
+        }
 
-.nav-links{display:flex;gap:15px;font-size:13px;color:var(--muted);}
-.nav-links a:hover{color:#fff;}
+        .header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-.btn{
-  padding:10px 14px;
-  border-radius:10px;
-  border:1px solid var(--border);
-  cursor:pointer;
-  font-weight:700;
-  font-size:13px;
-}
-.btn-primary{
-  background:var(--green);
-  color:#000;
-  border:none;
-}
+        .logo {
+            font-size: 26px;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            text-decoration: none;
+            color: white;
+            transition: var(--transition-smooth);
+        }
 
-/* HERO */
-.hero{
-  padding:140px 20px 60px;
-  text-align:center;
-}
-.hero h1{
-  font-size:clamp(40px,6vw,80px);
-}
-.hero p{
-  color:var(--muted);
-  max-width:700px;
-  margin:15px auto;
-}
+        .logo span {
+            color: var(--primary);
+            text-shadow: 0 0 6px rgba(0,247,77,0.3);
+        }
 
-/* SECTION */
-.section{
-  padding:60px 20px;
-  max-width:1100px;
-  margin:auto;
-}
+        nav ul {
+            display: flex;
+            gap: 36px;
+            list-style: none;
+        }
 
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:15px;
-}
+        nav a {
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-dim);
+            transition: 0.2s;
+        }
 
-.card{
-  background:var(--panel);
-  border:1px solid var(--border);
-  padding:20px;
-  border-radius:16px;
-  transition:.2s;
-}
-.card:hover{transform:translateY(-4px);border-color:var(--green);}
+        nav a:hover {
+            color: var(--primary);
+        }
 
-/* DASHBOARD */
-.dashboard{
-  display:none;
-  padding:80px 20px;
-  max-width:1100px;
-  margin:auto;
-}
+        /* section spacing */
+        section {
+            padding: 110px 0;
+            border-bottom: 1px solid var(--border-subtle);
+        }
 
-.stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-  margin-bottom:20px;
-}
+        .section-label {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 16px;
+            display: inline-block;
+        }
 
-.stat{
-  background:var(--panel);
-  border:1px solid var(--border);
-  padding:15px;
-  border-radius:12px;
-}
+        .section-title {
+            font-size: clamp(36px, 6vw, 58px);
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1.1;
+            margin-bottom: 48px;
+        }
 
-.stat h2{color:var(--green);}
+        /* hero */
+        .hero {
+            padding: 180px 0 120px;
+            text-align: center;
+            background: radial-gradient(ellipse at 50% 20%, rgba(0,247,77,0.08) 0%, transparent 70%);
+        }
 
-.console{
-  background:var(--panel);
-  border:1px solid var(--border);
-  padding:15px;
-  border-radius:12px;
-}
+        h1 {
+            font-size: clamp(52px, 10vw, 112px);
+            font-weight: 900;
+            letter-spacing: -4px;
+            margin-bottom: 28px;
+            background: linear-gradient(135deg, #FFFFFF 70%, #00f74d);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
 
-input{
-  width:100%;
-  padding:10px;
-  margin-top:10px;
-  background:#000;
-  border:1px solid var(--border);
-  color:#fff;
-  border-radius:8px;
-}
+        .hero-p {
+            font-size: clamp(18px, 2.2vw, 22px);
+            color: var(--text-dim);
+            max-width: 700px;
+            margin: 0 auto 48px;
+        }
 
-.key{
-  display:flex;
-  justify-content:space-between;
-  padding:8px;
-  border-bottom:1px solid #111;
-  font-family:monospace;
-  font-size:12px;
-}
+        /* buttons */
+        .btn-group {
+            display: flex;
+            gap: 18px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
 
-.green{color:var(--green);}
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 40px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.2s;
+            font-size: 15px;
+            cursor: pointer;
+            border: none;
+        }
 
-/* FOOTER */
-footer{
-  text-align:center;
-  padding:40px;
-  color:#333;
-  border-top:1px solid var(--border);
-  margin-top:60px;
-}
+        .btn-primary {
+            background: var(--primary);
+            color: #000000;
+            box-shadow: 0 0 10px rgba(0,247,77,0.3);
+        }
 
-</style>
+        .btn-primary:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 22px var(--primary-glow);
+            background: #00ff55;
+        }
+
+        .btn-outline {
+            border: 1px solid var(--border-subtle);
+            background: rgba(15,15,20,0.7);
+            color: white;
+            backdrop-filter: blur(4px);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* карточки экосистемы */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-subtle);
+            border-radius: 36px;
+            padding: 42px 32px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: var(--primary);
+            transform: translateY(-6px);
+            background: #111116;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.6);
+        }
+
+        .card h3 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 14px;
+            color: var(--primary);
+        }
+
+        .card p {
+            color: var(--text-dim);
+            font-size: 16px;
+        }
+
+        /* PRICE CARDS + КЛЮЧЕВОЙ ГЕНЕРАТОР ВНУТРИ PRO */
+        .price-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 40px;
+            align-items: start;
+        }
+
+        .price-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-subtle);
+            border-radius: 40px;
+            padding: 48px 36px;
+            transition: 0.2s;
+        }
+
+        .price-card.featured {
+            border: 1px solid var(--primary);
+            background: linear-gradient(145deg, #0d1110, #080a08);
+            box-shadow: 0 8px 24px rgba(0,247,77,0.08);
+            position: relative;
+        }
+
+        .price-val {
+            font-size: 54px;
+            font-weight: 800;
+            margin: 20px 0 24px;
+        }
+
+        .price-val span {
+            font-size: 18px;
+            color: var(--text-dim);
+            font-weight: 400;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin: 28px 0 32px;
+        }
+
+        .feature-list li {
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #cdcddf;
+            font-size: 15px;
+        }
+
+        .feature-list li::before {
+            content: "⚡";
+            color: var(--primary);
+            font-size: 18px;
+        }
+
+        /* Генератор внутри Pro карточки */
+        .key-generator-module {
+            margin-top: 32px;
+            padding-top: 28px;
+            border-top: 1px dashed rgba(0,247,77,0.3);
+        }
+
+        .api-key-display {
+            background: #020202;
+            border-radius: 20px;
+            padding: 14px 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+            letter-spacing: 0.3px;
+            border: 1px solid #2a2a2a;
+            margin: 18px 0;
+            word-break: break-all;
+            color: #b4ffb4;
+            transition: 0.2s;
+            display: none;
+            box-shadow: inset 0 0 6px rgba(0,0,0,0.8);
+        }
+
+        .api-key-display.active {
+            display: block;
+            border-color: var(--primary);
+        }
+
+        .gen-key-btn {
+            width: 100%;
+            background: #1c1c24;
+            border: 1px solid #2c2c34;
+            padding: 14px;
+            font-weight: 600;
+            border-radius: 34px;
+            color: white;
+            transition: 0.2s;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .gen-key-btn:hover {
+            background: var(--primary);
+            color: #000;
+            border-color: var(--primary);
+        }
+
+        /* DB лог — стильный терминал */
+        .db-console {
+            background: #030305;
+            border-radius: 28px;
+            border: 1px solid #1a1a20;
+            padding: 24px;
+            margin-top: 48px;
+        }
+
+        .log-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #1f1f28;
+            margin-bottom: 18px;
+            font-family: 'Fira Code', monospace;
+            font-size: 12px;
+            color: #5f5f6e;
+        }
+
+        .clear-log {
+            background: none;
+            border: none;
+            color: #ff6b6b;
+            font-size: 12px;
+            font-family: monospace;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .clear-log:hover {
+            color: #ff3b3b;
+            text-shadow: 0 0 3px rgba(255,50,50,0.5);
+        }
+
+        #dbLog {
+            font-family: 'Fira Code', monospace;
+            font-size: 13px;
+            max-height: 210px;
+            overflow-y: auto;
+            color: #b4b4c0;
+        }
+
+        #dbLog p {
+            padding: 6px 0;
+            border-bottom: 0.5px solid rgba(255,255,255,0.02);
+        }
+
+        .time-stamp {
+            color: #4c9a6e;
+        }
+
+        /* team section */
+        .team-box {
+            background: var(--bg-elevated);
+            border-radius: 48px;
+            border: 1px solid var(--border-subtle);
+            padding: 54px 58px;
+            display: flex;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        .team-info h3 {
+            font-size: clamp(28px, 4vw, 42px);
+            font-weight: 800;
+            margin-bottom: 18px;
+        }
+
+        .team-values {
+            border-left: 1px solid var(--border-subtle);
+            padding-left: 50px;
+        }
+
+        .team-values p {
+            color: var(--text-dim);
+            margin: 8px 0;
+        }
+
+        footer {
+            padding: 48px 0;
+            text-align: center;
+            color: #3e3e4a;
+            font-size: 13px;
+            border-top: 1px solid #121217;
+        }
+
+        @media (max-width: 880px) {
+            .team-box {
+                flex-direction: column;
+                text-align: center;
+                padding: 38px;
+            }
+            .team-values {
+                border-left: none;
+                border-top: 1px solid #222;
+                padding: 30px 0 0;
+            }
+            nav {
+                display: none;
+            }
+        }
+    </style>
 </head>
-
 <body>
-
-<!-- NAV -->
-<div class="navbar">
-  <div class="logo">LUMEN <span>LABS</span></div>
-
-  <div class="nav-links">
-    <a href="#features">Features</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#dashboard" onclick="openDash()">Dashboard</a>
-  </div>
-
-  <button class="btn btn-primary" onclick="openDash()">Launch</button>
-</div>
-
-<!-- HERO -->
-<div class="hero">
-  <h1>AI SaaS Platform</h1>
-  <p>Build, manage and scale API keys, AI services and developer tools in one ecosystem.</p>
-  <button class="btn btn-primary" onclick="openDash()">Open Dashboard</button>
-</div>
-
-<!-- FEATURES -->
-<div class="section" id="features">
-  <h2>Features</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>API Management</h3>
-      <p>Create and control secure API keys instantly.</p>
+<div class="noise-bg"></div>
+<header>
+    <div class="container header-flex">
+        <a href="#home" class="logo">LUMEN<span>LABS</span></a>
+        <nav>
+            <ul>
+                <li><a href="#ecosystem">Экосистема</a></li>
+                <li><a href="#pricing">Тарифы</a></li>
+                <li><a href="#team">Основатель</a></li>
+            </ul>
+        </nav>
     </div>
-    <div class="card">
-      <h3>AI Tools</h3>
-      <p>Connect models, tools and pipelines.</p>
-    </div>
-    <div class="card">
-      <h3>Analytics</h3>
-      <p>Track usage and performance in real time.</p>
-    </div>
-  </div>
-</div>
+</header>
+<main>
+    <section class="hero" id="home">
+        <div class="container">
+            <span class="section-label">Bottle-1 • Edge AI Core</span>
+            <h1>Bottle-1 Nano</h1>
+            <p class="hero-p">Локальное ИИ-ядро нового поколения. API-экосистема для разработчиков, EdTech и высокопроизводительных решений в Казахстане.</p>
+            <div class="btn-group">
+                <a href="#pricing" class="btn btn-primary">Активировать API</a>
+                <a href="#ecosystem" class="btn btn-outline">Сервисы</a>
+            </div>
+        </div>
+    </section>
 
-<!-- PRICING -->
-<div class="section" id="pricing">
-  <h2>Pricing</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>Free</h3>
-      <p>Basic API access</p>
-    </div>
-    <div class="card">
-      <h3>Pro</h3>
-      <p>Advanced tools & analytics</p>
-    </div>
-  </div>
-</div>
+    <!-- Экосистема -->
+    <section id="ecosystem">
+        <div class="container">
+            <span class="section-label">Bottle-1 Mesh</span>
+            <h2 class="section-title">Сервисы экосистемы</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>🧪 LabAI</h3>
+                    <p>Генерация образовательных экспериментов, симуляция физики и химии через API.</p>
+                </div>
+                <div class="card">
+                    <h3>⌨️ Rummy CLI</h3>
+                    <p>ИИ-ассистент для терминала: рефакторинг, документация, дебаггинг.</p>
+                </div>
+                <div class="card">
+                    <h3>🛰️ Remote Core</h3>
+                    <p>Выделенные вычислительные узлы и защищённый тоннель к Lumen Cloud.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- DASHBOARD -->
-<div class="dashboard" id="dashboard">
+    <!-- Тарифы + генератор ключей (органично внутри Pro карты) -->
+    <section id="pricing">
+        <div class="container">
+            <span class="section-label">API доступ</span>
+            <h2 class="section-title">Тарифные планы</h2>
+            <div class="price-grid">
+                <!-- Free план -->
+                <div class="price-card">
+                    <h3>Free</h3>
+                    <div class="price-val">0₸<span>/мес</span></div>
+                    <ul class="feature-list">
+                        <li>1,000 запросов / месяц</li>
+                        <li>Bottle-1 Core Inference</li>
+                        <li>Community Slack-чат</li>
+                        <li>Базовые модели</li>
+                    </ul>
+                    <a href="#pricing" class="btn btn-outline" style="width:100%; text-align: center;">Начать бесплатно</a>
+                </div>
+                
+                <!-- Pro план + генератор ключей расположен прямо здесь -->
+                <div class="price-card featured" id="proCard">
+                    <h3>Pro</h3>
+                    <div class="price-val">4,900₸<span>/мес</span></div>
+                    <ul class="feature-list">
+                        <li>Безлимитные запросы</li>
+                        <li>LabAI + Rummy CLI полный доступ</li>
+                        <li>Приоритетная поддержка 24/7</li>
+                        <li>Ранний доступ к Bottle-1 обновлениям</li>
+                    </ul>
+                    <!-- Генератор API ключей — встроен в карточку Pro -->
+                    <div class="key-generator-module">
+                        <div style="font-size: 13px; color: #a0f0a0; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                            <span>🔑</span> <span>Генератор ключей доступа к Bottle-1 API</span>
+                        </div>
+                        <div id="keyDisplay" class="api-key-display"></div>
+                        <button onclick="generateAndSaveKey()" class="gen-key-btn">🚀 Сгенерировать API-ключ</button>
+                        <p style="font-size: 12px; color: #5e5e72; margin-top: 14px;">Ключ будет добавлен в защищённый Lumen Cloud DB</p>
+                    </div>
+                </div>
+            </div>
 
-  <h2>Developer Dashboard</h2>
+            <!-- Лог базы данных — эстетичная консоль -->
+            <div class="db-console">
+                <div class="log-header">
+                    <span>⟡ LUMEN_DB::active_stream [Bottle-1 Nano]</span>
+                    <button onclick="clearDB()" class="clear-log">[ очистить лог ]</button>
+                </div>
+                <div id="dbLog">> Ожидание генерации ключей...</div>
+            </div>
+        </div>
+    </section>
 
-  <div class="stats">
-    <div class="stat">
-      <p>Keys</p>
-      <h2 id="count">0</h2>
-    </div>
-    <div class="stat">
-      <p>Requests</p>
-      <h2>1284</h2>
-    </div>
-    <div class="stat">
-      <p>Status</p>
-      <h2>Active</h2>
-    </div>
-  </div>
-
-  <div class="console">
-    <h3>API Keys Console</h3>
-
-    <input id="input" placeholder="Enter API key" />
-    <button class="btn btn-primary" onclick="addKey()">Add Key</button>
-    <button class="btn" onclick="generateKey()">Generate</button>
-
-    <div id="list" style="margin-top:15px"></div>
-  </div>
-
-</div>
-
+    <!-- Команда -->
+    <section id="team">
+        <div class="container">
+            <div class="team-box">
+                <div class="team-info">
+                    <h3>Дияр — vision & ядро Lumen Labs</h3>
+                    <p style="color: var(--text-dim); font-size: 18px; font-weight: 400;">14 лет, разработчик и архитектор. Мы строим собственный ИИ-стек, чтобы сделать передовые технологии и образование доступными в Казахстане. Bottle-1 — это только начало.</p>
+                </div>
+                <div class="team-values">
+                    <h4 style="color: var(--primary); margin-bottom: 20px;">/ 3 pillars</h4>
+                    <p>⚡ Скорость и эффективность</p>
+                    <p>🌍 Локальная sovereignty</p>
+                    <p>🧠 Инновации без границ</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
 <footer>
-  © 2026 Lumen Labs — SaaS Platform
+    <div class="container">
+        <p>© 2026 Lumen Labs Ecosystem — разработано в Астане для JasSkills 2025</p>
+        <p style="margin-top: 6px;">Bottle-1 Nano AI Core · Версия 2.1 · Lumen Cloud DB</p>
+    </div>
 </footer>
 
 <script>
-let keys=[];
+    // Функция генерации уникального ключа в формате Lumen Labs + сохранение в "БД" localStorage
+    function generateAndSaveKey() {
+        // Генерация более стильного ключа
+        const prefix = "lm_b1";
+        const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ0123456789";
+        let randomPart = "";
+        for (let i = 0; i < 16; i++) {
+            randomPart += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        const timestamp = Date.now().toString(36).slice(-4);
+        const apiKey = `${prefix}_${randomPart}_${timestamp}_nano`;
 
-function openDash(){
-  document.querySelector('.hero').style.display='none';
-  document.querySelector('#features').style.display='none';
-  document.querySelector('#pricing').style.display='none';
-  document.querySelector('#dashboard').style.display='block';
-}
+        // Отображаем ключ в карточке Pro
+        const keyDisplayDiv = document.getElementById('keyDisplay');
+        keyDisplayDiv.innerText = apiKey;
+        keyDisplayDiv.classList.add('active');
+        
+        // Добавляем в "базу данных" (localStorage)
+        let database = JSON.parse(localStorage.getItem('lumen_bottle1_keys') || '[]');
+        const newEntry = {
+            key: apiKey,
+            time: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute:'2-digit', second:'2-digit' }),
+            date: new Date().toLocaleDateString()
+        };
+        database.unshift(newEntry);  // свежие сверху
+        // Ограничим историю 20 записями для чистоты
+        if (database.length > 20) database.pop();
+        localStorage.setItem('lumen_bottle1_keys', JSON.stringify(database));
+        
+        // Обновляем визуализацию лога
+        renderDBLog();
+        
+        // Эффект пульсации на кнопке (небольшой фидбек)
+        const btn = document.querySelector('.gen-key-btn');
+        btn.style.transform = 'scale(0.97)';
+        setTimeout(() => { btn.style.transform = ''; }, 120);
+    }
 
-function generateKey(){
-  const chars="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-  let k="ll_";
-  for(let i=0;i<16;i++) k+=chars[Math.floor(Math.random()*chars.length)];
+    // Рендер терминала с записями
+    function renderDBLog() {
+        const logContainer = document.getElementById('dbLog');
+        const stored = localStorage.getItem('lumen_bottle1_keys');
+        if (!stored) {
+            logContainer.innerHTML = '<p style="opacity:0.6;">> Нет сгенерированных ключей. Нажмите "Сгенерировать API-ключ" в Pro-тарифе.</p>';
+            return;
+        }
+        let keysArray = JSON.parse(stored);
+        if (keysArray.length === 0) {
+            logContainer.innerHTML = '<p style="opacity:0.6;">> База ключей пуста. Создайте первый ключ доступа.</p>';
+            return;
+        }
+        
+        let html = '';
+        keysArray.forEach(entry => {
+            // Экранируем спецсимволы для безопасности
+            const safeKey = entry.key.replace(/[&<>]/g, '');
+            html += `<p>
+                        <span class="time-stamp">[${entry.time} ${entry.date || ''}]</span> 
+                        <span style="color:#6fcf97;"> ⟩ DB_COMMIT</span> 
+                        <span style="color:#00ff95;">✓</span> API_KEY: 
+                        <span style="color:#d0ffd0; font-weight: 500; background:#121212; padding:2px 6px; border-radius:12px; font-family:monospace;">${safeKey}</span>
+                     </p>`;
+        });
+        logContainer.innerHTML = html;
+        // Автоскролл вниз (показываем последние сверху, но логично оставить последние добавленные вверху, но не скроллить)
+        // Для удобства скроллим вверх к свежим записям (unshift уже дал верхний порядок)
+        if (logContainer.scrollTop !== undefined) logContainer.scrollTop = 0;
+    }
 
-  keys.unshift({value:k,time:new Date().toLocaleTimeString()});
-  update();
-}
+    // Очистка всей базы ключей
+    function clearDB() {
+        if (confirm("Очистить историю сгенерированных API-ключей? Это не повлияет на активные ключи, но удалит записи из лога.")) {
+            localStorage.removeItem('lumen_bottle1_keys');
+            renderDBLog();
+            // Скрыть отображение ключа в карточке, если ключ отображается
+            const keyDisplayDiv = document.getElementById('keyDisplay');
+            keyDisplayDiv.classList.remove('active');
+            keyDisplayDiv.innerText = '';
+            // дополнительно добавим эфемерное сообщение в лог
+            const logContainer = document.getElementById('dbLog');
+            logContainer.innerHTML = '<p style="color:#aaa;">> База данных очищена. Новые ключи будут залогированы.</p>';
+        }
+    }
 
-function addKey(){
-  const v=document.getElementById('input').value;
-  if(!v)return;
-
-  keys.unshift({value:v,time:new Date().toLocaleTimeString()});
-  document.getElementById('input').value="";
-  update();
-}
-
-function update(){
-  document.getElementById('count').innerText=keys.length;
-
-  document.getElementById('list').innerHTML=
-  keys.map(k=>`
-    <div class='key'>
-      <span class='green'>${k.value}</span>
-      <span>${k.time}</span>
-    </div>
+    // Доп. функция для подсветки активной вкладки и инициализация
+    window.onload = () => {
+        renderDBLog();
+        // если ранее был сгенерирован какой-то ключ и он висел в display, но карточка не показывала — проверим последний ключ в БД и покажем его?
+        const storedKeys = localStorage.getItem('lumen_bottle1_keys');
+        if (storedKeys) {
+            const keysArr = JSON.parse(storedKeys);
+            if (keysArr.length > 0) {
+                const lastKey = keysArr[0].key;
+                const keyDisplayDiv = document.getElementById('keyDisplay');
+                if (lastKey && keyDisplayDiv) {
+                    keyDisplayDiv.innerText = lastKey;
+                    keyDisplayDiv.classList.add('active');
+                }
+            }
+        }
+    };
+</script>
+</body>
+</html>
