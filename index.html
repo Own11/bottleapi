@@ -3,111 +3,120 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>LumenLabs | Bottle-1</title>
+<title>Lumen Labs — SaaS Platform</title>
 
 <style>
 :root{
   --bg:#050505;
-  --panel:#0b0b0f;
+  --panel:#0b0b10;
   --border:#1a1a22;
   --text:#ffffff;
   --muted:#9aa0a6;
   --green:#00ff41;
+  --blue:#4da3ff;
 }
 
-*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,Arial,sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,Arial;}
+body{background:var(--bg);color:var(--text);overflow-x:hidden;}
 
-body{
-  background:var(--bg);
-  color:var(--text);
-  height:100vh;
+a{color:inherit;text-decoration:none;}
+
+/* NAV */
+.navbar{
+  position:fixed;
+  top:0;left:0;right:0;
+  height:60px;
   display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:0 20px;
+  background:rgba(5,5,5,.7);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+  z-index:1000;
 }
 
-/* SIDEBAR */
-.sidebar{
-  width:260px;
-  background:var(--panel);
-  border-right:1px solid var(--border);
-  padding:20px;
-  display:flex;
-  flex-direction:column;
-}
+.logo{font-weight:900;}
+.logo span{color:var(--green);}
 
-.logo{
-  font-size:18px;
-  font-weight:900;
-}
-
-.logo span{color:var(--green)}
-
-.nav{
-  margin-top:30px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-
-.nav div{
-  padding:10px;
-  color:var(--muted);
-  cursor:pointer;
-  border-radius:8px;
-}
-
-.nav div:hover{
-  background:#111;
-  color:#fff;
-}
+.nav-links{display:flex;gap:15px;font-size:13px;color:var(--muted);}
+.nav-links a:hover{color:#fff;}
 
 .btn{
-  margin-top:auto;
-  padding:12px;
+  padding:10px 14px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  cursor:pointer;
+  font-weight:700;
+  font-size:13px;
+}
+.btn-primary{
   background:var(--green);
   color:#000;
-  font-weight:700;
   border:none;
-  border-radius:10px;
-  cursor:pointer;
 }
 
-/* MAIN */
-.main{
-  flex:1;
-  padding:20px;
-  overflow:auto;
+/* HERO */
+.hero{
+  padding:140px 20px 60px;
+  text-align:center;
+}
+.hero h1{
+  font-size:clamp(40px,6vw,80px);
+}
+.hero p{
+  color:var(--muted);
+  max-width:700px;
+  margin:15px auto;
 }
 
-h1{
-  font-size:28px;
-  margin-bottom:20px;
+/* SECTION */
+.section{
+  padding:60px 20px;
+  max-width:1100px;
+  margin:auto;
 }
 
 .grid{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:15px;
 }
 
 .card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  padding:20px;
+  border-radius:16px;
+  transition:.2s;
+}
+.card:hover{transform:translateY(-4px);border-color:var(--green);}
+
+/* DASHBOARD */
+.dashboard{
+  display:none;
+  padding:80px 20px;
+  max-width:1100px;
+  margin:auto;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-bottom:20px;
+}
+
+.stat{
   background:var(--panel);
   border:1px solid var(--border);
   padding:15px;
   border-radius:12px;
 }
 
-.card p{
-  color:var(--muted);
-  font-size:13px;
-}
+.stat h2{color:var(--green);}
 
-.card h2{
-  margin-top:10px;
-  color:var(--green);
-}
-
-.section{
-  margin-top:20px;
+.console{
   background:var(--panel);
   border:1px solid var(--border);
   padding:15px;
@@ -117,13 +126,14 @@ h1{
 input{
   width:100%;
   padding:10px;
+  margin-top:10px;
   background:#000;
   border:1px solid var(--border);
   color:#fff;
   border-radius:8px;
 }
 
-.key-item{
+.key{
   display:flex;
   justify-content:space-between;
   padding:8px;
@@ -132,63 +142,121 @@ input{
   font-size:12px;
 }
 
-.green{color:var(--green)}
+.green{color:var(--green);}
 
-@media(max-width:900px){
-  .grid{grid-template-columns:1fr;}
-  .sidebar{display:none;}
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:40px;
+  color:#333;
+  border-top:1px solid var(--border);
+  margin-top:60px;
 }
+
 </style>
 </head>
+
 <body>
 
-<div class="sidebar">
+<!-- NAV -->
+<div class="navbar">
   <div class="logo">LUMEN <span>LABS</span></div>
 
-  <div class="nav">
-    <div>Dashboard</div>
-    <div>API Keys</div>
-    <div>Logs</div>
-    <div>Settings</div>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#dashboard" onclick="openDash()">Dashboard</a>
   </div>
 
-  <button class="btn" onclick="generateKey()">Generate Key</button>
+  <button class="btn btn-primary" onclick="openDash()">Launch</button>
 </div>
 
-<div class="main">
-  <h1>Developer Dashboard</h1>
+<!-- HERO -->
+<div class="hero">
+  <h1>AI SaaS Platform</h1>
+  <p>Build, manage and scale API keys, AI services and developer tools in one ecosystem.</p>
+  <button class="btn btn-primary" onclick="openDash()">Open Dashboard</button>
+</div>
 
+<!-- FEATURES -->
+<div class="section" id="features">
+  <h2>Features</h2>
   <div class="grid">
     <div class="card">
-      <p>Active Keys</p>
-      <h2 id="keyCount">0</h2>
+      <h3>API Management</h3>
+      <p>Create and control secure API keys instantly.</p>
     </div>
-
     <div class="card">
+      <h3>AI Tools</h3>
+      <p>Connect models, tools and pipelines.</p>
+    </div>
+    <div class="card">
+      <h3>Analytics</h3>
+      <p>Track usage and performance in real time.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PRICING -->
+<div class="section" id="pricing">
+  <h2>Pricing</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Free</h3>
+      <p>Basic API access</p>
+    </div>
+    <div class="card">
+      <h3>Pro</h3>
+      <p>Advanced tools & analytics</p>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard" id="dashboard">
+
+  <h2>Developer Dashboard</h2>
+
+  <div class="stats">
+    <div class="stat">
+      <p>Keys</p>
+      <h2 id="count">0</h2>
+    </div>
+    <div class="stat">
       <p>Requests</p>
       <h2>1284</h2>
     </div>
-
-    <div class="card">
-      <p>Latency</p>
-      <h2>42ms</h2>
+    <div class="stat">
+      <p>Status</p>
+      <h2>Active</h2>
     </div>
   </div>
 
-  <div class="section">
-    <p style="color:#9aa0a6;font-size:13px">Manual API Key Input</p>
-    <input id="manualKey" placeholder="Enter API key..." />
-    <button class="btn" style="margin-top:10px" onclick="addManualKey()">Add Key</button>
+  <div class="console">
+    <h3>API Keys Console</h3>
+
+    <input id="input" placeholder="Enter API key" />
+    <button class="btn btn-primary" onclick="addKey()">Add Key</button>
+    <button class="btn" onclick="generateKey()">Generate</button>
+
+    <div id="list" style="margin-top:15px"></div>
   </div>
 
-  <div class="section">
-    <p style="color:#9aa0a6;font-size:13px">API Keys</p>
-    <div id="list"></div>
-  </div>
 </div>
+
+<footer>
+  © 2026 Lumen Labs — SaaS Platform
+</footer>
 
 <script>
 let keys=[];
+
+function openDash(){
+  document.querySelector('.hero').style.display='none';
+  document.querySelector('#features').style.display='none';
+  document.querySelector('#pricing').style.display='none';
+  document.querySelector('#dashboard').style.display='block';
+}
 
 function generateKey(){
   const chars="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -199,27 +267,21 @@ function generateKey(){
   update();
 }
 
-function addManualKey(){
-  const input=document.getElementById("manualKey");
-  if(!input.value) return;
+function addKey(){
+  const v=document.getElementById('input').value;
+  if(!v)return;
 
-  keys.unshift({value:input.value,time:new Date().toLocaleTimeString()});
-  input.value="";
+  keys.unshift({value:v,time:new Date().toLocaleTimeString()});
+  document.getElementById('input').value="";
   update();
 }
 
 function update(){
-  document.getElementById("keyCount").innerText=keys.length;
+  document.getElementById('count').innerText=keys.length;
 
-  const list=document.getElementById("list");
-  list.innerHTML=keys.map(k=>`
-    <div class="key-item">
-      <span class="green">${k.value}</span>
+  document.getElementById('list').innerHTML=
+  keys.map(k=>`
+    <div class='key'>
+      <span class='green'>${k.value}</span>
       <span>${k.time}</span>
     </div>
-  `).join("");
-}
-</script>
-
-</body>
-</html>
